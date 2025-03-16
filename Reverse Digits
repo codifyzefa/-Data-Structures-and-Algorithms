@@ -1,0 +1,37 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ */
+
+package pms.mavenproject1;
+import java.util.Scanner;
+/**
+ *
+ * @author huzaifa
+ */
+public class Mavenproject1 
+{
+
+    public static void main(String[] args) 
+    {
+        while(true){
+     int num;
+     System.out.println("Enter the Number : ");
+     Scanner sc = new Scanner(System.in);
+     num=sc.nextInt();
+     int count=0;
+     int sum=0;
+     int r=0;
+     int ans;
+     while(num!=0)
+     {
+         ans=num%10;
+         r=r*10+(ans);
+         num=num/10;
+         count++;
+     }
+     System.out.println(count);
+     System.out.println(sum);
+     System.out.println(r);
+    }
+}
+}
