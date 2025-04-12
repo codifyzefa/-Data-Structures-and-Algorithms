@@ -1,0 +1,47 @@
+import java.util.*;
+public class reverseStackRe {
+
+
+    public static void pushAtButtom(Stack<Integer> st,int x)
+    {
+        if(st.size()==0)
+        {
+            st.push(x);
+
+            return;
+        }
+        int top=st.pop();
+        pushAtButtom(st, x);
+        st.push(top);
+    }
+    public static void reverse(Stack<Integer> st)
+    {
+        if(st.size()==1)
+        {
+            return;
+        }
+        int top=st.pop();
+        reverse(st);
+        pushAtButtom(st,top);
+    }
+    public static void main(String[] args) {
+        Stack<Integer> st=new Stack<>();
+
+        int x;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the Element to Add in Stack : ");
+        for(int i=0;i<5;i++)
+        {
+            
+            x=sc.nextInt();
+            st.push(x);
+        }
+            System.out.println("The Original Stack Before (Recursive Method) is : "+st);
+            reverse(st);
+            System.out.println("The Reverse Stack With (Recursive Method) is : "+st);
+        
+    
+
+    
+}
+}
