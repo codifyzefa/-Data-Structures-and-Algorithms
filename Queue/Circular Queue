@@ -1,0 +1,90 @@
+class demo {
+    int arr[] = new int[5];
+    int f = -1;
+    int r = -1;
+    int size = 0;
+
+    public void add(int x) {
+        if (size == arr.length) {
+            System.out.println("Queue is full . . .");
+            return;
+        } else if (size == 0) {
+            f = 0;
+            r = 0;
+            arr[r] = x;
+        } else if (r < arr.length - 1) {
+            r++;
+            arr[r] = x;
+        } else if (r == arr.length - 1) {
+            r = 0;
+            arr[r] = x;
+        }
+        size++;
+    }
+
+    public int remove() {
+        if (size == 0) {
+            System.out.println("Queue is Empty : ");
+            return -1;
+        } else {
+            int val = arr[f];
+            if (f == arr.length - 1) {
+                f = 0;
+            } else {
+                f++;
+            }
+            size--;
+            return val;
+        }
+    }
+
+    public int peek() {
+        return arr[f];
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    public boolean isFull() {
+        return size == arr.length;
+    }
+
+    public void display() {
+        if (size == 0) {
+            System.out.println("Queue is Empty :: ");
+            return;
+        } else if (f <= r) {
+            for (int i = f; i <= r; i++) {
+                System.out.println("Queue Element is : " + arr[i]);
+            }
+        } else {
+            for (int i = f; i < arr.length; i++) {
+                System.out.println("Queue Element is : " + arr[i]);
+            }
+            for (int i = 0; i <= r; i++) {
+                System.out.println("Queue Element is : " + arr[i]);
+            }
+        }
+    }
+}
+
+public class practice1 {
+    public static void main(String[] args) {
+        demo q = new demo();
+
+        q.add(10);
+        q.add(20);
+        q.add(30);
+        q.add(40);
+        q.add(50);
+
+        q.display();
+
+        System.out.println("Removed: " + q.remove());
+        System.out.println("Peek: " + q.peek());
+
+        q.add(60);
+        q.display();
+    }
+}
