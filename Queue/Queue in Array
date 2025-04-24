@@ -1,0 +1,76 @@
+class demo
+{
+    int  arr[]=new int[5];
+    int f=-1;
+    int r=-1;
+    int size=0;
+    public void add(int x)
+    {
+        if(r=arr.length-1)
+        {
+            System.out.println("Queue is full . . .");
+            return ; 
+        }
+        if(f==-1)
+        {
+            f=0
+            r=0;
+        }
+        else
+        {
+            arr[r]=x;
+            r++;
+            size++;
+        }
+    }
+    public int remove()
+    {
+        if(size==0)
+        {
+            System.out.println("Queue is Empty : ");
+            return;
+        }
+        f++;
+        return arr[f-1];
+        size--;
+    }
+    public int peek()
+    {
+        return arr[f];
+    }
+    public boolean isEmpty()
+    {
+        if(size==0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    public int isFull()
+    {
+        if(size==arr.length-1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    public void display()
+    {
+        for(int i=f;i<=r;i++)
+        {
+            System.out.println("Queue Element is : "+arr[i]);
+        }
+    }
+}
+public class practice1 {
+
+    public static void main(String[] args) {
+        
+    }
+}
