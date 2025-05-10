@@ -1,0 +1,78 @@
+import java.util.Scanner;
+class stack
+{
+    private int arr[]=new int[10];
+    private int idx=0;
+
+    public void push(int x)
+    {
+        if(isFull())
+        {
+            System.out.println("Stack is Full ");
+        }
+       
+        arr[idx]=x;
+        idx++;
+        System.out.println(x + " is Successfully Added into Stack ");
+    }
+    public int  pop()
+    {
+        if(isEmpty())
+        {
+            System.out.println("Stack is Empty ");
+        }
+         int top=arr[idx-1];
+         arr[idx-1]=0;
+         idx--;
+         return top;
+    }
+    public int peek()
+    {
+        if(isEmpty())
+        {
+            System.out.println("Stack is Empty ");
+
+            return -1;
+        }
+        return arr[idx-1];
+    }
+    public boolean isFull()
+    {
+        if(idx==arr.length)
+        {
+            return true;
+        }
+        return false;
+    }
+    public int size()
+    {
+        return idx;
+    }
+    public boolean isEmpty()
+    {
+        if(size()==0)
+        {
+            return true;
+        }
+        return false;
+    }
+    public void display()
+    {
+        for(int i=0;i<idx;i++)
+        {
+            System.out.println("Stack Elemet is : "+arr[i]);
+        }
+    }
+}
+public class arraystack {
+
+    public static void main(String[] args) {
+        stack s = new stack();
+        s.push(23);
+        s.push(45);
+        s.display();
+        s.pop();
+        s.display();
+        System.out.println(s.size());
+    }
+}
