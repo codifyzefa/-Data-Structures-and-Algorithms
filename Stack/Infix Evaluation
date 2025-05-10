@@ -1,0 +1,64 @@
+import java.util.Stack;
+
+public class arraystack {
+
+    public static void main(String[] args) {
+        String str = "9-(5+3)*4/6";
+        Stack<Integer> val = new Stack<>();
+        Stack<Character> op = new Stack<>();
+        
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+            int ascii = (int) ch;
+            
+            if (ascii >= 48 && ascii <= 57) {
+                val.push(ascii - 48);
+            } 
+            else if (ch == '(') {
+                op.push(ch);
+            } 
+            else if (ch == ')') {
+                while (op.peek() != '(') {
+                    int v2 = val.pop();
+                    int v1 = val.pop();
+                    char oper = op.pop();
+                    if (oper == '-') val.push(v1 - v2);
+                    else if (oper == '+') val.push(v1 + v2);
+                    else if (oper == '/') val.push(v1 / v2);
+                    else if (oper == '*') val.push(v1 * v2);
+                }
+                op.pop(); // pop '('
+            } 
+            else {
+                while (!op.isEmpty() && precedence(op.peek()) >= precedence(ch)) {
+                    int v2 = val.pop();
+                    int v1 = val.pop();
+                    char oper = op.pop();
+                    if (oper == '-') val.push(v1 - v2);
+                    else if (oper == '+') val.push(v1 + v2);
+                    else if (oper == '/') val.push(v1 / v2);
+                    else if (oper == '*') val.push(v1 * v2);
+                }
+                op.push(ch);
+            }
+        }
+
+        while (!op.isEmpty()) {
+            int v2 = val.pop();
+            int v1 = val.pop();
+            char oper = op.pop();
+            if (oper == '-') val.push(v1 - v2);
+            else if (oper == '+') val.push(v1 + v2);
+            else if (oper == '/') val.push(v1 / v2);
+            else if (oper == '*') val.push(v1 * v2);
+        }
+
+        System.out.println("The Infix is : " + val.peek());
+    }
+
+    public static int precedence(char ch) {
+        if (ch == '+' || ch == '-') return 1;
+        else if (ch == '*' || ch == '/') return 2;
+        else return 0;
+    }
+}
