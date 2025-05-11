@@ -1,0 +1,155 @@
+import java.util.*;
+class StringStack 
+{
+    String[] data;
+    int top;
+
+    StringStack(int size) 
+    {
+        data = new String[size];
+        top = 0;
+    }
+
+    void push(String val) 
+    {
+        top++;
+        data[top] = val;
+    }
+
+    String pop() 
+    {
+        if (top == -1) 
+        {
+            return null;  
+        }
+        String s = data[top];
+        data[top] = null;
+        top--; 
+        return s;
+    }
+
+    String peek() 
+    {
+        if (top == -1) 
+        {
+            return null;  
+        }
+        return data[top];
+    }
+
+    boolean isEmpty() 
+    {
+        return top == -1;
+    }
+}
+
+class CharStack 
+{
+    char[] data;
+    int top;
+
+    CharStack(int size) 
+    {
+        data = new char[size];
+        top = -1;
+    }
+
+    void push(char val) 
+    {
+        top++;
+        data[top] = val;
+    }
+
+    char pop() 
+    {
+        if (top == -1) 
+        {
+            return '\0';  
+        }
+        char c = data[top];
+        top--; 
+        return c;
+    }
+
+    char peek() 
+    {
+        if (top == -1) 
+        {
+
+            return '\0';  
+        }
+        return data[top];
+    }
+
+    boolean isEmpty() 
+    {
+        return top == -1;
+    }
+}
+
+public class mainx 
+{
+    public static void main(String[] args) 
+    {
+        String str = "(9-(5+3)*4/6)";
+        StringStack val = new StringStack(str.length());
+        CharStack op = new CharStack(str.length());
+
+        for (int i = 0; i < str.length(); i++) 
+        {
+            char ch = str.charAt(i);
+            int ascii = (int) ch;
+
+            if (ascii >= 48 && ascii <= 57)
+            {
+                val.push("" + ch); 
+            } else if (ch == '(') 
+            {
+                op.push(ch); // 
+            } else if (ch == ')')
+            {
+                while (op.peek() != '(') 
+                {
+                    String v2 = val.pop();
+                    String v1 = val.pop();
+                    char oper = op.pop();
+                    String t = v1 + v2+oper; 
+                    val.push(t);
+                }
+                op.pop(); 
+            } else 
+            {
+
+                while (!op.isEmpty() && precedence(op.peek()) >= precedence(ch))
+                 {
+                    String v2 = val.pop();
+                    String v1 = val.pop();
+                    char oper = op.pop();
+                    String t = v1 + v2+oper; 
+                    val.push(t);
+                }
+                op.push(ch); 
+            }
+        }
+
+        
+        while (!op.isEmpty()) 
+        {
+            String v2 = val.pop();
+            String v1 = val.pop();
+            char oper = op.pop();
+            String t = v1 + v2+oper; 
+            val.push(t);
+        }
+
+       
+        System.out.println("The Prefix is : " + val.peek());
+    }
+
+    public static int precedence(char ch) 
+    {
+        if (ch == '+' || ch == '-') return 1;
+        else if (ch == '*' || ch == '/') return 2;
+        else return 0;
+    }
+}
