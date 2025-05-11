@@ -1,0 +1,85 @@
+import java.util.*;
+
+class Stack 
+{
+    int[] data;
+    int top;
+
+    Stack(int size) 
+    {
+        data = new int[size];
+        top = -1;
+    }
+
+    void push(int val) 
+    {
+        top++;
+        data[top] = val;
+    }
+
+    int pop() 
+    {
+        if (top == -1) 
+        {
+            return -1;  
+        }
+        int s = data[top];
+        data[top] = 0;
+        top--; 
+        return s;
+    }
+
+    int peek() 
+    {
+        if (top == -1) 
+        {
+            return -1;  
+        }
+        return data[top];
+    }
+
+    boolean isEmpty() 
+    {
+        return top == -1;
+    }
+}
+
+public class mainx 
+{
+    public static void main(String[] args) 
+    {
+        String str = "-9/*+5346"; 
+        Stack val = new Stack(str.length());
+
+        for (int i = str.length() - 1; i >= 0; i--) 
+        {
+            char ch = str.charAt(i);
+            int ascii = (int) ch;
+
+            if (ascii >= 48 && ascii <= 57) 
+            {
+                val.push(ascii - 48); 
+            } else 
+            {
+                int v1 = val.pop();
+                int v2 = val.pop();
+
+                if (ch == '+') 
+                {
+                    val.push(v1 + v2);
+                } else if (ch == '-') 
+                {
+                    val.push(v1 - v2);  
+                } else if (ch == '*') 
+                {
+                    val.push(v1 * v2);
+                } else if (ch == '/') 
+                {
+                    val.push(v1 / v2);
+                }
+            }
+        }
+
+        System.out.println("The Prefix Expression Value is: " + val.peek());
+    }
+}
