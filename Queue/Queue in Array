@@ -1,26 +1,28 @@
-class demo
+class xqueue
 {
-    int  arr[]=new int[5];
-    int f=-1;
-    int r=-1;
+    int rear =-1;
+    int front =-1;
+    int arr[]=new int[5];
     int size=0;
     public void add(int x)
     {
-        if(r=arr.length-1)
+        if(rear==arr.length-1)
         {
-            System.out.println("Queue is full . . .");
-            return ; 
-        }
-        if(f==-1)
-        {
-            f=0
-            r=0;
+            System.out.println("Queue is Full");
         }
         else
         {
-            arr[r]=x;
-            r++;
-            size++;
+            if(front==-1)
+            {
+                rear=front=0;
+            }
+            else
+            {
+                rear++;
+            }
+                arr[rear]=x;
+               
+                size++;
         }
     }
     public int remove()
@@ -28,49 +30,33 @@ class demo
         if(size==0)
         {
             System.out.println("Queue is Empty : ");
-            return;
-        }
-        f++;
-        return arr[f-1];
-        size--;
-    }
-    public int peek()
-    {
-        return arr[f];
-    }
-    public boolean isEmpty()
-    {
-        if(size==0)
-        {
-            return true;
+            return -1;
         }
         else
         {
-            return false;
-        }
-    }
-    public int isFull()
-    {
-        if(size==arr.length-1)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
+            front++;
+            return arr[front-1];
         }
     }
     public void display()
     {
-        for(int i=f;i<=r;i++)
+        for(int i=front;i<=rear;i++)
         {
-            System.out.println("Queue Element is : "+arr[i]);
+            System.out.println("Queue Elemet is : " + arr[i]);
         }
     }
-}
-public class practice1 {
-
-    public static void main(String[] args) {
-        
+    public int peek()
+    {
+        return arr[front];
     }
+}
+public class queue {
+    public static void main(String[] args) 
+    {
+        xqueue q = new xqueue();
+        q.add(12);
+        q.add(34);
+        q.display();
+        System.out.println(q.peek());
+}
 }
