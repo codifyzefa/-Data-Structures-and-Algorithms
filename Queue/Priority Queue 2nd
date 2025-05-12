@@ -1,0 +1,110 @@
+import java.util.Scanner;
+class queue
+{
+    int[] queue;
+    int front, rear, capacity;
+
+    public queue(int capacity) 
+    {
+        this.capacity = capacity;
+        queue = new int[capacity];
+        front = 0;
+        rear = -1;
+    }
+
+    boolean isEmpty() 
+    {
+        return front > rear;
+    }
+
+    boolean isFull() 
+    {
+        return rear == capacity - 1;
+    }
+
+    public void enqueue(int x) 
+    {
+        if (isFull()) 
+        {
+            System.out.println("Overflow! Cannot insert more elements.");
+            return;
+        }
+
+        int i;
+        for (i = rear; i >= front && queue[i] < x; i--) 
+        {
+            queue[i + 1] = queue[i]; 
+        }
+
+        queue[i + 1] = x;
+        rear++;
+    }
+
+    public void dequeue() 
+    {
+        if (isEmpty()) 
+        {
+            System.out.println("Underflow! No elements to delete.");
+            return;
+        }
+
+        System.out.println("Deleted element: " + queue[front]);
+        front++;
+    }
+
+    public void display() 
+    {
+        if (isEmpty()) 
+        {
+            System.out.println("Queue is empty.");
+            return;
+        }
+
+        System.out.println("Priority Queue (High to Low):");
+        for (int i = front; i <= rear; i++) 
+        {
+            System.out.print(queue[i] + " ");
+        }
+        System.out.println();
+    }
+}
+public class xqueue
+{
+
+    public static void main(String[] args) 
+    {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter max capacity of queue: ");
+        int cap = sc.nextInt();
+
+       queue q = new queue(cap);
+
+        while (true) {
+            System.out.println("\n--- MENU ---");
+            System.out.println("1. Enqueue");
+            System.out.println("2. Dequeue");
+            System.out.println("3. Display");
+            System.out.println("4. Exit");
+            System.out.print("Enter your choice: ");
+            int ch = sc.nextInt();
+
+            switch (ch) {
+                case 1:
+                    System.out.print("Enter value to insert: ");
+                    int x = sc.nextInt();
+                    q.enqueue(x);
+                    break;
+                case 2:
+                    q.dequeue();
+                    break;
+                case 3:
+                    q.display();
+                    break;
+                case 4:
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid choice.");
+            }
+        }
+    }
+}
