@@ -1,0 +1,146 @@
+import java.util.Scanner;
+
+public class Priority_Queue 
+{
+    int[] queue; 
+    int[] priorities;
+    int size, capacity; 
+
+    public Priority_Queue(int capacity) 
+    {
+        this.queue = new int[capacity];
+        this.priorities = new int[capacity];
+        this.size = 0; 
+        this.capacity = capacity;
+    }
+
+    boolean isempty() 
+    {
+        return size == 0;
+    }
+
+    boolean isfull() 
+    {
+        return size == capacity;
+    }
+
+    void enqueue() 
+    {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter value to insert : ");
+        int value = input.nextInt();
+        System.out.println("Enter value its priority : ");
+        int priority = input.nextInt();
+
+        if (isfull()) {
+            System.out.println("Overflow! Can't insert other elements.");
+            return;
+        }
+
+        int i;
+        for (i = size - 1; i >= 0; i--) 
+        {
+            if(priorities[i] > priority)
+            {
+            queue[i + 1] = queue[i];
+            priorities[i + 1] = priorities[i];
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        queue[i + 1] = value;
+        priorities[i + 1] = priority;
+        size++;
+    }
+
+    void dequeue() 
+    {
+        if (isempty()) 
+        {
+            System.out.println("Underflow! No element exists in Queue.");
+            return;
+        } 
+        else 
+        {
+            System.out.println("Element deleted: " + queue[0] + " , Priority: " + priorities[0]);
+            for (int i = 0; i < size - 1; i++) 
+            {
+                queue[i] = queue[i + 1];
+                priorities[i] = priorities[i + 1];
+            }
+            size--;
+        }
+    }
+
+    void display() 
+    {
+        if (size == 0) 
+        {
+            System.out.println("Queue is empty.");
+            return;
+        }
+
+        System.out.println("Priority Queue (value : priority):");
+        for (int i = 0; i < size; i++) 
+        {
+            System.out.println(queue[i] + " : " + priorities[i]);
+        }
+    }
+
+    void peek() 
+    {
+        if (isempty()) 
+        {
+            System.out.println("Underflow! No element exists in Queue.");
+            return;
+        }
+        System.out.println("Top priority element is: " + queue[0] + " , Priority: " + priorities[0]);
+    }
+
+    public static void main(String[] args) 
+    {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter max capacity of Queue: ");
+        int capacity = input.nextInt();
+
+        Priority_Queue s1 = new Priority_Queue(capacity);
+
+        while (true) 
+        {
+            System.out.println("**********");
+            System.out.println("Main Menu");
+            System.out.println("1. Enqueue element");
+            System.out.println("2. Dequeue element");
+            System.out.println("3. Peek");
+            System.out.println("4. Display Queue");
+            System.out.println("5. Exit");
+            System.out.println("**********");
+            System.out.println("Enter your choice: ");
+            int ch = input.nextInt();
+
+            switch (ch) 
+            {
+                case 1:
+                    s1.enqueue();
+                    break;
+                case 2:
+                    s1.dequeue();
+                    break;
+                case 3:
+                    s1.peek();
+                    break;
+                case 4:
+                    s1.display();
+                    break;
+                case 5:
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Enter valid number");
+            }
+        }
+    }
+}
